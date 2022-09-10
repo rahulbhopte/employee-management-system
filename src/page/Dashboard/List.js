@@ -1,8 +1,15 @@
 import React from 'react'
-import { employeesData } from '../../Data/index'
 
-function List({ employees, handleEdit, handleDelete } ) {
-   
+const getAllEmployees = () => {
+    const result = localStorage.getItem('userDetails');
+    const originalUserList = JSON.parse(result);
+    let filteredData = originalUserList.filter(data => data.designation !== "Manager");
+    return filteredData;
+}
+
+function List({ employees, handleEdit, handleDelete }) {
+
+    const employeesData = getAllEmployees();
 
     return (
         <div className='contain-table'>
@@ -10,11 +17,9 @@ function List({ employees, handleEdit, handleDelete } ) {
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Full Name</th>
                         <th>Email</th>
-                        <th>Task</th>
-                        <th>Date</th>
+                        <th>Designation</th>
                         <th colSpan={2} className="text-center">
                             Actions
                         </th>
@@ -24,13 +29,11 @@ function List({ employees, handleEdit, handleDelete } ) {
                 <tbody>
                     {employeesData.length > 0 ? (
                         employeesData.map((employee, i) => (
-                            <tr key={employee.id}>
-                                <td>{i + 1}</td>
-                                <td>{employee.firstName}</td>
-                                <td>{employee.lastName}</td>
-                                <td>{employee.email}</td>
-                                <td>{employee.task}</td>
-                                <td>{employee.date} </td>
+                            <tr key={i}>
+                                <td>{i+1}</td>
+                                <td>{employee.fullName}</td>
+                                <td>{employee.emailId}</td>
+                                <td>{employee.designation}</td>
                                 <td className="text-right">
                                     <button
                                         onClick={() => handleEdit(employee.id)}

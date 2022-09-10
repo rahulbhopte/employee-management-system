@@ -79,21 +79,8 @@ function Edit({ employees, selectedEmployee, setEmployees, setIsEditing }) {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
-                <label htmlFor="task">Task </label>
-                <input
-                    id="task"
-                    type="text"
-                    name="task"
-                    value={task}
-                    onChange={e => setTask(e.target.value)}
-                />
-                <label htmlFor="date">Date</label>
-                <input
-                    id="date"
-                    type="date"
-                    name="date"
-                    value={date}
-                    onChange={e => setDate(e.target.value)}
+                
+               
                 />
                 <div style={{ marginTop: '30px' }}>
                     <input type="submit" value="Update" />

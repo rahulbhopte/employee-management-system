@@ -1,11 +1,12 @@
 
-import { employeesData } from "../../Data/index"
-import { useState } from "react";
+import { employeesData } from "../../Data/employeesData"
+import { useEffect, useState } from "react";
 import Header from "./Header";
 import List from "./List";
 import Add from "./Add";
 import Edit from "./Edit";
 import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Taskboard() {
   const { employees, setEmployees } = useState(employeesData);
@@ -18,29 +19,42 @@ export default function Taskboard() {
     setSelectedEmployee(employee);
     setIsEditing(true);
   }
-  const handleDelete = (id) => {Swal.fire({
-    icon: 'warning',
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'No, cancel!',
-}).then(result => {
-    if (result.value) {
+  const handleDelete = (id) => {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then(result => {
+      if (result.value) {
         const [employee] = employees.filter(employee => employee.id === id);
 
         Swal.fire({
-            icon: 'success',
-            title: 'Deleted!',
-            text: `${employee.firstName} ${employee.lastName}'s data has been deleted.`,
-            showConfirmButton: false,
-            timer: 1500,
+          icon: 'success',
+          title: 'Deleted!',
+          text: `${employee.firstName} ${employee.lastName}'s data has been deleted.`,
+          showConfirmButton: false,
+          timer: 1500,
         });
 
         setEmployees(employees.filter(employee => employee.id !== id));
+      }
+    });
+
+  }
+
+  const navigate = useNavigate();
+  const token = localStorage.getItem("loggedInUser");
+  console.log("token : ", token);
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
     }
-});}
+  }, []);
   return (
+
     <div className="conatiner">
       {!isAdding && !isEditing && (
         <>
@@ -51,7 +65,7 @@ export default function Taskboard() {
             handleDelete={handleDelete}
           />
         </>
-       )} 
+      )}
 
       {isAdding && (
         <Add

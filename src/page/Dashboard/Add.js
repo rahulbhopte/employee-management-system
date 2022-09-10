@@ -6,7 +6,7 @@ function Add({ employees, setEmployees, setIsAdding }) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [task, setTask] = useState('');1
+    const [task, setTask] = useState('');
     const [date, setDate] = useState('');
 
     const textInput = useRef(null);
@@ -78,22 +78,8 @@ function Add({ employees, setEmployees, setIsAdding }) {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
-                <label htmlFor="task">task ($)</label>
-                <input
-                    id="task"
-                    type="text"
-                    name="task"
-                    value={task}
-                    onChange={e => setTask(e.target.value)}
-                />
-                <label htmlFor="date">Date</label>
-                <input
-                    id="date"
-                    type="date"
-                    name="date"
-                    value={date}
-                    onChange={e => setDate(e.target.value)}
-                />
+                
+                
                 <div style={{ marginTop: '30px' }}>
                     <input type="submit" value="Add" />
                     <input
